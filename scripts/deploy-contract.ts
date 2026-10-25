@@ -32,13 +32,30 @@ async function main() {
   );
 
   // Define a carteira de deploy
-  if (!adminPrivateKey) {
-    console.error('❌ Erro: ADMIN_PRIVATE_KEY não definida para assinar o deploy do contrato.');
-    console.log('Dica: Gere ou use uma carteira de testes da Base Sepolia e defina: export ADMIN_PRIVATE_KEY="0x..."');
+  let rawKey = adminPrivateKey ? adminPrivateKey.trim().replace(/['"]/g, '') : '';
+
+  if (!rawKey || rawKey.includes('sua_chave') || rawKey.includes('your_private_key')) {
+    console.error('\n❌ Erro: ADMIN_PRIVATE_KEY inválida ou ainda com texto de exemplo/placeholder.');
+    console.log('👉 Para gerar uma chave real de testes válida em 1 segundo, execute:');
+    console.log('   npm run create-wallet\n');
+    console.log('Depois copie a chave real exibida e exporte com:');
+    console.log('   export ADMIN_PRIVATE_KEY="0x..."\n');
     process.exit(1);
   }
 
-  const account = privateKeyToAccount({ client, privateKey: adminPrivateKey });
+  // Garante o prefixo 0x
+  const formattedKey = (rawKey.startsWith('0x') ? rawKey : `0x${rawKey}`) as `0x${string}`;
+
+  // Valida formato de 32 bytes hexadecimais (64 caracteres hex + '0x' = 66 caracteres)
+  if (!/^0x[0-9a-fA-F]{64}$/.test(formattedKey)) {
+    console.error('\n❌ Erro: Formato da chave privada inválido.');
+    console.error(`   Recebido: ${formattedKey.slice(0, 10)}... (tamanho: ${formattedKey.length} caracteres)`);
+    console.error('   Esperado: Chave hexadecimal de 32 bytes (64 caracteres + 0x = 66 caracteres).');
+    console.log('\n👉 Dica: Execute "npm run create-wallet" para gerar uma chave perfeitamente formatada.\n');
+    process.exit(1);
+  }
+
+  const account = privateKeyToAccount({ client, privateKey: formattedKey });
   const network = process.env.VITE_ACTIVE_CHAIN === 'base' ? base : baseSepolia;
 
   console.log(`🚀 Iniciando deploy do contrato Edition Drop na rede: ${network.name}...`);
