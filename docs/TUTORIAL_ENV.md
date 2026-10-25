@@ -1,6 +1,9 @@
 # 📋 Guia Passo a Passo: Configuração do Arquivo `.env`
 
-Este tutorial orienta como obter e preencher corretamente todas as variáveis de ambiente necessárias para rodar o **Serena dApp** localmente e em produção no **GitHub Pages**.
+Este tutorial orienta como obter e preencher corretamente todas as variáveis de ambiente necessárias para rodar o **SobrietyChain dApp** localmente e em produção no **GitHub Pages**.
+
+> 💡 **Prefere fazer tudo via terminal e código sem acessar telas visuais?**  
+> Veja nosso guia [**Setup 100% via Código (CLI e Scripts)**](SETUP_VIA_CODE.md).
 
 ---
 
