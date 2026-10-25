@@ -153,9 +153,9 @@ Para que sua carteira de testes consiga registrar o contrato na rede Base Sepoli
 
 ---
 
-### Passo 5: Deploy do Contrato e Preenchimento Automático do `.env` via Script
+### Passo 5: Deploy do Contrato e Preenchimento Automático de `VITE_EDITION_DROP_ADDRESS`
 
-Agora que você tem a chave de testes e fundos de faucet, faça o deploy:
+Agora que você tem a chave de testes e fundos de faucet, faça o deploy com:
 
 ```bash
 # 1. Defina a chave privada da carteira de testes
@@ -165,7 +165,8 @@ export ADMIN_PRIVATE_KEY="0x_sua_chave_privada_gerada_acima"
 npm run deploy:contract
 ```
 
-#### Saída Esperada no Terminal:
+#### O que o script faz com o `VITE_EDITION_DROP_ADDRESS`:
+O script se conecta à rede Base Sepolia, publica o contrato inteligente e **edita o arquivo `.env` para você automaticamente**, substituindo o endereço zerado pelo endereço real do contrato recém-criado:
 
 ```text
 📄 Arquivo .env verificado com sucesso.
@@ -178,7 +179,33 @@ npm run deploy:contract
 
 ---
 
-### Passo 4: Sincronizar Secrets com o GitHub Pages via Terminal (GitHub CLI)
+## 🔍 Onde Achar o `VITE_EDITION_DROP_ADDRESS` no Dashboard Manualmente?
+
+Caso você prefira copiar o endereço do contrato manualmente através da interface web do Thirdweb em vez do script:
+
+1. Acesse: [thirdweb.com/dashboard/contracts](https://thirdweb.com/dashboard/contracts)
+2. Clique no seu contrato **SobrietyChain** (tipo *Edition Drop*).
+3. No topo da página, logo abaixo do nome do contrato, localize o endereço hexadecimal com o ícone de cópia:
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│  SobrietyChain - Marcos de Sobriedade                        │
+│                                                              │
+│  0x83A648B1b62b08384914c1737F9bF1B1a798939c  [📋 Copiar]    │
+│  Base Sepolia (Chain ID: 84532)                              │
+└──────────────────────────────────────────────────────────────┘
+```
+
+4. Clique no ícone de cópia ao lado de `0x83A6...`.
+5. Abra o arquivo `.env` na raiz do projeto e cole o endereço:
+
+```env
+VITE_EDITION_DROP_ADDRESS=0x83A648B1b62b08384914c1737F9bF1B1a798939c
+```
+
+---
+
+### Passo 6: Sincronizar Secrets com o GitHub Pages via Terminal (GitHub CLI)
 
 Para que o deploy automático do GitHub Actions funcione sem precisar abrir as configurações do GitHub no navegador, use a **GitHub CLI (`gh`)**:
 
@@ -197,7 +224,7 @@ gh secret set VITE_ACTIVE_CHAIN -b "base-sepolia"
 
 ---
 
-### Passo 5: Testar Localmente e Publicar
+### Passo 7: Testar Localmente e Publicar
 
 ```bash
 # 1. Testar a aplicação rodando localmente
