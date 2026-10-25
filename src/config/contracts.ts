@@ -1,10 +1,15 @@
 import { getContract } from 'thirdweb';
-import { baseSepolia, base } from 'thirdweb/chains';
+import { sepolia, baseSepolia, base } from 'thirdweb/chains';
 import { client } from '../client';
 
 // Define a rede padrão com base nas variáveis de ambiente
-const isProduction = import.meta.env.VITE_ACTIVE_CHAIN === 'base';
-export const activeChain = isProduction ? base : baseSepolia;
+const chainEnv = import.meta.env.VITE_ACTIVE_CHAIN;
+export const activeChain =
+  chainEnv === 'base'
+    ? base
+    : chainEnv === 'base-sepolia'
+    ? baseSepolia
+    : sepolia;
 
 // Endereço do contrato Edition Drop (ERC-1155)
 export const EDITION_DROP_ADDRESS =

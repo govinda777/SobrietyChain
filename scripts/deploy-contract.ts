@@ -1,7 +1,7 @@
 import { createThirdwebClient } from 'thirdweb';
 import { privateKeyToAccount, getWalletBalance } from 'thirdweb/wallets';
 import { deployPublishedContract } from 'thirdweb/deploys';
-import { baseSepolia, base } from 'thirdweb/chains';
+import { sepolia, baseSepolia, base } from 'thirdweb/chains';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -73,7 +73,13 @@ async function main() {
   }
 
   const account = privateKeyToAccount({ client, privateKey: formattedKey });
-  const network = process.env.VITE_ACTIVE_CHAIN === 'base' ? base : baseSepolia;
+  const chainEnv = process.env.VITE_ACTIVE_CHAIN;
+  const network =
+    chainEnv === 'base'
+      ? base
+      : chainEnv === 'base-sepolia'
+      ? baseSepolia
+      : sepolia;
 
   console.log(`🚀 Conectando à rede: ${network.name}...`);
   console.log(`👤 Carteira Administradora: ${account.address}`);
@@ -90,12 +96,12 @@ async function main() {
 
     if (balance.value === 0n) {
       console.log('\n' + '='.repeat(70));
-      console.log('⚠️  SALDO INSUFICIENTE PARA O DEPLOY NA BASE SEPOLIA');
+      console.log(`⚠️  SALDO INSUFICIENTE PARA O DEPLOY NA ${network.name.toUpperCase()}`);
       console.log('='.repeat(70));
-      console.log(`A sua carteira (${account.address}) está com 0 ETH de teste.`);
+      console.log(`A sua carteira (${account.address}) está com 0 ${balance.symbol} de teste.`);
       console.log('Para registrar o contrato na blockchain, você precisa de uma fração de ETH gratuito.');
       console.log('\n👉 PASSO RÁPIDO PARA RESOLVER:');
-      console.log('1. Acesse: https://basefaucet.com ou https://www.base.org/faucets');
+      console.log('1. Acesse: https://faucets.chain.link ou https://sepoliafaucet.com');
       console.log(`2. Cole seu endereço: ${account.address}`);
       console.log('3. Clique em solicitar e aguarde 10 segundos.');
       console.log('4. Rode o comando novamente: npm run deploy:contract');
