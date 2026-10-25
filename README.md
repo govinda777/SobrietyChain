@@ -99,6 +99,9 @@ VITE_EDITION_DROP_ADDRESS=0x_seu_endereco_do_contrato
 VITE_ACTIVE_CHAIN=base-sepolia
 ```
 
+> 📖 **Precisa de ajuda para obter essas chaves?** Consulte nosso [**Tutorial Detalhado do `.env` (Passo a Passo)**](docs/TUTORIAL_ENV.md) com ilustrações do Thirdweb Dashboard e guia de resolução de dúvidas.
+
+
 ### Iniciar servidor de desenvolvimento
 
 ```bash
