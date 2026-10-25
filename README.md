@@ -89,17 +89,14 @@ npm install
 
 # 3. Criar arquivo de configuração .env
 cp .env.example .env
+
+# 4. Deploy automatizado do contrato e auto-preenchimento do .env
+export ADMIN_PRIVATE_KEY="0x_sua_chave_privada_da_testnet"
+npm run deploy:contract
 ```
 
-Abra o arquivo `.env` e preencha com suas credenciais:
+> 💻 **Setup 100% via Código e Terminal:** Consulte nosso [**Guia de Configuração do `.env` via Scripts (IaC)**](docs/TUTORIAL_ENV.md) para rodar o pipeline sem acessar painéis visuais.
 
-```env
-VITE_THIRDWEB_CLIENT_ID=seu_client_id_do_thirdweb
-VITE_EDITION_DROP_ADDRESS=0x_seu_endereco_do_contrato
-VITE_ACTIVE_CHAIN=base-sepolia
-```
-
-> 📖 **Precisa de ajuda para obter essas chaves?** Consulte nosso [**Tutorial Detalhado do `.env` (Passo a Passo)**](docs/TUTORIAL_ENV.md) com ilustrações do Thirdweb Dashboard e guia de resolução de dúvidas.
 
 
 ### Iniciar servidor de desenvolvimento
