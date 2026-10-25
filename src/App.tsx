@@ -124,7 +124,7 @@ export const App: React.FC = () => {
           </div>
         </section>
 
-        {/* Pilares da Arquitetura Serena */}
+        {/* Pilares da Arquitetura SobrietyChain */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-2.5">
             <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
@@ -142,7 +142,7 @@ export const App: React.FC = () => {
             </div>
             <h3 className="text-sm font-bold text-white">Gasless (ERC-4337)</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Você não precisa comprar ETH nem pagar taxas de rede. O dApp Serena patrocina integralmente suas transações.
+              Você não precisa comprar ETH nem pagar taxas de rede. O dApp SobrietyChain patrocina integralmente suas transações.
             </p>
           </div>
 
@@ -192,7 +192,7 @@ export const App: React.FC = () => {
       {/* Rodapé Estático */}
       <footer className="border-t border-slate-800/80 bg-slate-950 py-6 text-center text-xs text-slate-500">
         <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p>Serena dApp • Hospedado 100% de forma estática no GitHub Pages</p>
+          <p>SobrietyChain dApp • Hospedado 100% de forma estática no GitHub Pages</p>
           <p className="text-slate-400 font-medium">"Apenas por 24 horas."</p>
         </div>
       </footer>

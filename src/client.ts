@@ -5,7 +5,7 @@ const clientId = import.meta.env.VITE_THIRDWEB_CLIENT_ID || '0000000000000000000
 
 if (!import.meta.env.VITE_THIRDWEB_CLIENT_ID) {
   console.warn(
-    'Aviso Serena: VITE_THIRDWEB_CLIENT_ID não configurado. Defina sua chave pública no arquivo .env para interagir na blockchain.'
+    'Aviso SobrietyChain: VITE_THIRDWEB_CLIENT_ID não configurado. Defina sua chave pública no arquivo .env para interagir na blockchain.'
   );
 }
 

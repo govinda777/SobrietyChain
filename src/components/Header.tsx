@@ -19,7 +19,7 @@ export const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-serena-dark/80 border-b border-serena-border/70 transition-all duration-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-        {/* Logotipo e Identidade Serena */}
+        {/* Logotipo e Identidade SobrietyChain */}
         <div className="flex items-center space-x-3.5">
           <div className="relative flex items-center justify-center w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-indigo-600 p-0.5 shadow-lg shadow-emerald-900/30">
             <div className="w-full h-full bg-[#0B0F17] rounded-[14px] flex items-center justify-center">
@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-slate-100 via-slate-200 to-slate-400 bg-clip-text text-transparent">
-                Serena
+                SobrietyChain
               </h1>
               <span className="inline-flex items-center gap-1 text-[11px] font-medium tracking-wide uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 <ShieldCheck className="w-3 h-3" />
@@ -67,7 +67,7 @@ export const Header: React.FC = () => {
               className: '!bg-gradient-to-r !from-emerald-600 !to-teal-600 hover:!from-emerald-500 hover:!to-teal-500 !text-white !font-medium !text-sm !px-4 !py-2.5 !rounded-xl !shadow-md !shadow-emerald-900/30 !transition-all !duration-200 !border-0',
             }}
             connectModal={{
-              title: 'Serena — Identidade Silenciosa',
+              title: 'SobrietyChain — Identidade Silenciosa',
               size: 'compact',
               showThirdwebBranding: false,
               privacyPolicyUrl: 'https://pt.wikipedia.org/wiki/Alco%C3%B3licos_An%C3%B4nimos',
