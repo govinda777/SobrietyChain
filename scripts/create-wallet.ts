@@ -1,4 +1,5 @@
-import { generatePrivateKey, privateKeyToAccount } from 'thirdweb/wallets';
+import crypto from 'crypto';
+import { privateKeyToAccount } from 'thirdweb/wallets';
 import { createThirdwebClient } from 'thirdweb';
 
 /**
@@ -9,8 +10,9 @@ function main() {
     clientId: '00000000000000000000000000000000',
   });
 
-  // Gera uma chave privada criptograficamente segura
-  const privateKey = generatePrivateKey();
+  // Gera uma chave privada criptograficamente segura de 32 bytes hexadecimais
+  const randomHex = crypto.randomBytes(32).toString('hex');
+  const privateKey = `0x${randomHex}` as const;
   const account = privateKeyToAccount({ client, privateKey });
 
   console.log('='.repeat(70));
