@@ -23,6 +23,31 @@ gh secret set -f .env
 
 ---
 
+## 📦 Como Instalar e Executar a CLI do Thirdweb
+
+Você tem duas maneiras simples de executar o comando `thirdweb`:
+
+### Opção A: Executar diretamente via `npx` (Sem precisar instalar nada)
+O Node.js já vem com o utilitário `npx`. Basta rodar diretamente no terminal do projeto:
+```bash
+npx thirdweb login
+```
+
+### Opção B: Instalar Globalmente no seu computador
+Se você preferir ter o comando `thirdweb` disponível em qualquer pasta do seu terminal sem precisar digitar `npx`:
+```bash
+# Instalar globalmente via npm
+npm install -g thirdweb
+
+# Verificar a instalação
+thirdweb --version
+
+# Agora você pode chamar direto:
+thirdweb login
+```
+
+---
+
 ## 🛠️ Passo a Passo Detalhado (Estratégia por Código)
 
 ### Passo 1: Autenticar o Terminal com seu GitHub (Apenas 1 vez)
@@ -31,6 +56,7 @@ Como você já conectou sua conta do GitHub ao Thirdweb:
 
 ```bash
 npx thirdweb login
+# ou simplesmente: thirdweb login (se tiver instalado globalmente)
 ```
 
 - O terminal abrirá uma janela rápida no navegador para você confirmar a permissão do seu GitHub.

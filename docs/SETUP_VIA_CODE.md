@@ -17,6 +17,21 @@ npm run deploy:contract
 gh secret set -f .env
 ```
 
+## 📦 Como Instalar a CLI do Thirdweb
+
+Você tem duas opções simples:
+
+1. **Sem instalar nada (via `npx`):** O Node.js executa sob demanda automaticamente:
+   ```bash
+   npx thirdweb login
+   ```
+2. **Instalação global no sistema:**
+   ```bash
+   npm install -g thirdweb
+   # Após instalar globalmente, você pode executar diretamente:
+   thirdweb login
+   ```
+
 ---
 
 ## 🛠️ Passo a Passo Detalhado
