@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "lint": "tsc --noEmit",
     "deploy:contract": "tsx scripts/deploy-contract.ts",
+    "setup:tokens": "tsx scripts/setup-tokens.ts",
     "create-wallet": "tsx scripts/create-wallet.ts",
     "thirdweb": "thirdweb"
   },
