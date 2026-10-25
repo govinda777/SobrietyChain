@@ -53,34 +53,56 @@ thirdweb login
 
 ## 🛠️ Passo a Passo Detalhado (Estratégia por Código)
 
-### Passo 1: Autenticar o Terminal com seu GitHub (Apenas 1 vez)
+### Passo 1: Autenticar o Terminal com `thirdweb login` e Criar o Projeto
 
-Como você já conectou sua conta do GitHub ao Thirdweb:
+No seu terminal, execute o comando de login:
 
 ```bash
 npx thirdweb login
-# ou simplesmente: thirdweb login (se tiver instalado globalmente)
+# ou simplesmente: thirdweb login (se instalado globalmente)
 ```
 
-- O terminal abrirá uma janela rápida no navegador para você confirmar a permissão do seu GitHub.
-- Uma vez autenticado, suas credenciais de desenvolvedor ficam salvas localmente em `~/.thirdweb`.
+1. **O navegador abrirá automaticamente** na página do Thirdweb.
+2. Como você já conectou seu GitHub, o Thirdweb abrirá uma janela modal chamada **"Create Project"** (Criar Projeto).
+3. **Preencha exatamente os campos dessa janela:**
+
+```text
+┌────────────────────────────────────────────────────────┐
+│ Create Project                                      [X]│
+├────────────────────────────────────────────────────────┤
+│ Project Name:                                          │
+│ [ SobrietyChain                                      ] │
+│                                                        │
+│ Allowed Domains:                 [ ] Allow all domains │
+│ [ localhost:5173, *.github.io                        ] │
+│                                                        │
+│   (Dica: você também pode marcar "Allow all domains"   │
+│    para facilitar durante a fase de desenvolvimento)   │
+│                                                        │
+│ [Cancel]                                    [ Create ] │
+└────────────────────────────────────────────────────────┘
+```
+
+4. **Clique no botão branco "Create":**
+   - O projeto será criado instantaneamente.
+   - O navegador exibirá a página do projeto recém-criado com o seu **Client ID** e um botão de cópia ao lado.
+   - **Copie o Client ID** (um texto parecido com `9b821a37c04e28e1...`).
+5. **No terminal:** O terminal exibirá a mensagem de confirmação de que o login foi concluído com sucesso.
 
 ---
 
-### Passo 2: Inicializar o Arquivo `.env` Local
+### Passo 2: Inicializar o Arquivo `.env` e Inserir o Client ID
 
-Crie sua cópia local a partir do modelo do repositório:
+1. Crie sua cópia local a partir do modelo do repositório:
+   ```bash
+   cp .env.example .env
+   ```
 
-```bash
-cp .env.example .env
-```
-
-Defina o seu **Client ID** no arquivo `.env` (ou exporte no terminal):
-
-```bash
-# Você pode ver suas chaves via CLI ou no painel:
-export VITE_THIRDWEB_CLIENT_ID="seu_client_id_aqui"
-```
+2. Abra o arquivo `.env` e cole o seu **Client ID** copiado no passo anterior:
+   ```env
+   VITE_THIRDWEB_CLIENT_ID=seu_client_id_copiado_aqui
+   ```
+   *(Ou exporte no seu terminal com: `export VITE_THIRDWEB_CLIENT_ID="seu_client_id_copiado_aqui"`)*.
 
 ---
 

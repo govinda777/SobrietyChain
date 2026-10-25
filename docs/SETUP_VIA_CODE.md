@@ -36,31 +36,35 @@ Você tem duas opções simples:
 
 ## 🛠️ Passo a Passo Detalhado
 
-### 1. Autenticar no Thirdweb pelo Terminal
-Como você já conectou sua conta do GitHub ao Thirdweb:
+### 1. Autenticar no Thirdweb e Criar o Projeto Inicial
+
+Ao rodar o comando de login:
 
 ```bash
 npx thirdweb login
+# ou: thirdweb login
 ```
 
-- Uma janela rápida será aberta para validar seu token de autorização.
-- Uma vez autenticado, o Thirdweb salvará suas credenciais localmente em `~/.thirdweb`.
+1. O navegador abrirá automaticamente.
+2. Como seu GitHub já está conectado e sua equipe ainda não tem um projeto ativo, o Thirdweb abrirá a janela modal **"Create Project"**.
+3. **Preencha os campos da janela:**
+   - **Project Name:** `SobrietyChain`
+   - **Allowed Domains:** `localhost:5173, *.github.io` *(ou marque a caixinha "Allow all domains")*
+   - Clique no botão branco **"Create"**.
+4. A página exibirá o seu **Client ID**. Copie este valor.
+5. O terminal confirmará que a sessão foi autenticada.
 
 ---
 
-### 2. Obter o Client ID via CLI ou API
-Você pode visualizar suas chaves ou projetos usando a CLI:
+### 2. Configurar o Client ID no `.env`
 
-```bash
-# Ou gerar uma nova chave diretamente caso necessário
-npx thirdweb api keys
+Cole o Client ID copiado no seu arquivo `.env`:
+
+```env
+VITE_THIRDWEB_CLIENT_ID=seu_client_id_copiado
 ```
 
-Insira o seu `VITE_THIRDWEB_CLIENT_ID` no seu `.env` (ou exporte no terminal):
-
-```bash
-export VITE_THIRDWEB_CLIENT_ID="seu_client_id"
-```
+*(Ou exporte no seu terminal com `export VITE_THIRDWEB_CLIENT_ID="seu_client_id_copiado"`)*.
 
 ---
 
