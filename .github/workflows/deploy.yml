@@ -1,0 +1,45 @@
+name: Deploy Serena dApp to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Instalar Dependências
+        run: npm ci || npm install
+
+      - name: Compilar Projeto (Vite Build)
+        env:
+          VITE_THIRDWEB_CLIENT_ID: ${{ secrets.VITE_THIRDWEB_CLIENT_ID }}
+          VITE_EDITION_DROP_ADDRESS: ${{ secrets.VITE_EDITION_DROP_ADDRESS }}
+          VITE_ACTIVE_CHAIN: ${{ secrets.VITE_ACTIVE_CHAIN || 'base-sepolia' }}
+        run: npm run build
+
+      - name: Deploy para a branch gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          commit_message: "deploy: atualizacao automatica do Serena dApp via GitHub Actions"
