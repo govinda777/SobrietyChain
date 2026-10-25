@@ -64,7 +64,23 @@ export VITE_THIRDWEB_CLIENT_ID="seu_client_id"
 
 ---
 
-### 3. Deploy do Contrato e Preenchimento Automático do `.env`
+### 3. Gerar a Carteira de Testes e Obter a Chave (`ADMIN_PRIVATE_KEY`)
+
+Para assinar a criação do contrato na Base Sepolia, você precisa de uma chave privada de testes. **Nunca utilize sua carteira principal com dinheiro real.**
+
+Gere uma carteira segura e descartável diretamente no terminal:
+
+```bash
+npm run create-wallet
+```
+
+O comando exibirá o seu **Endereço Público** e a **Chave Privada**.
+
+> 🚰 **Solicite ETH de teste gratuito:** Cole o endereço público gerado em [base.org/faucets](https://www.base.org/faucets) ou [basefaucet.com](https://basefaucet.com) para receber frações de ETH de teste na Base Sepolia (custo zero).
+
+---
+
+### 4. Deploy do Contrato e Preenchimento Automático do `.env`
 
 Criamos o script [`scripts/deploy-contract.ts`](../scripts/deploy-contract.ts) que:
 1. Conecta-se à rede **Base Sepolia** (ou Base Mainnet);
@@ -75,10 +91,10 @@ Criamos o script [`scripts/deploy-contract.ts`](../scripts/deploy-contract.ts) q
 Basta rodar:
 
 ```bash
-# Defina a chave privada que assinará a criação do contrato (apenas para o deploy)
-export ADMIN_PRIVATE_KEY="0x_sua_chave_privada_de_testnet"
+# 1. Defina a chave privada gerada no passo anterior
+export ADMIN_PRIVATE_KEY="0x_sua_chave_privada_gerada_acima"
 
-# Executa o deploy programático
+# 2. Executa o deploy programático
 npm run deploy:contract
 ```
 

@@ -4,7 +4,7 @@ Este tutorial ensina como configurar o ambiente do **SobrietyChain dApp** adotan
 
 ---
 
-## ⚡ Fluxo Rápido: Setup Completo em 4 Passos
+## ⚡ Fluxo Rápido: Setup Completo em 5 Passos
 
 ```bash
 # 1. Autenticar no Thirdweb com sua conta do GitHub
@@ -13,11 +13,14 @@ npx thirdweb login
 # 2. Copiar o template de variáveis
 cp .env.example .env
 
-# 3. Rodar o script de deploy automatizado do contrato (Preenche o .env sozinho)
-export ADMIN_PRIVATE_KEY="0x_sua_chave_privada_da_base_sepolia"
+# 3. Gerar uma carteira nova e segura de testes (Gera o ADMIN_PRIVATE_KEY)
+npm run create-wallet
+
+# 4. Rodar o script de deploy automatizado do contrato (Preenche o .env sozinho)
+export ADMIN_PRIVATE_KEY="0x_chave_privada_gerada_no_passo_anterior"
 npm run deploy:contract
 
-# 4. Sincronizar as variáveis com o GitHub Pages via GitHub CLI
+# 5. Sincronizar as variáveis com o GitHub Pages via GitHub CLI
 gh secret set -f .env
 ```
 
@@ -81,23 +84,62 @@ export VITE_THIRDWEB_CLIENT_ID="seu_client_id_aqui"
 
 ---
 
-### Passo 3: Deploy do Contrato e Preenchimento Automático do `.env` via Script
+---
 
-Não é necessário entrar no dashboard para criar o contrato Edition Drop. Criamos um script que faz tudo por você: [`scripts/deploy-contract.ts`](../scripts/deploy-contract.ts).
+### Passo 3: Como Conseguir a Chave Privada de Testes (`ADMIN_PRIVATE_KEY`)
 
-O script executa as seguintes etapas programaticamente:
-1. Conecta-se à rede **Base Sepolia** (ou **Base Mainnet**);
-2. Faz o deploy do contrato **Edition Drop (ERC-1155)** com o nome e símbolo oficiais do SobrietyChain;
-3. Captura o endereço do contrato recém-criado na blockchain;
-4. **Escreve automaticamente o valor em `VITE_EDITION_DROP_ADDRESS` dentro do seu `.env`**.
+A `ADMIN_PRIVATE_KEY` é a chave criptográfica que assina a criação do contrato inteligente na rede **Base Sepolia**.
 
-#### Como Executar:
+> [!CAUTION]
+> **REGRA DE OURO DE SEGURANÇA:**
+> - **NUNCA** use sua carteira pessoal principal (que guarda dinheiro ou criptomoedas reais).
+> - Crie e use uma carteira **NOVA e EXCLUSIVA** apenas para desenvolvimento/testes.
+
+Você pode obter essa chave de duas formas:
+
+#### Opção A: Gerar uma Carteira Nova no Terminal com 1 Comando (Recomendado)
+Criamos um script que gera uma carteira segura para você instantaneamente:
 
 ```bash
-# 1. Defina a chave privada da carteira de testes que assinará a criação
-export ADMIN_PRIVATE_KEY="0x_sua_chave_privada_de_testnet"
+npm run create-wallet
+```
 
-# 2. Execute o script automatizado
+O terminal exibirá:
+1. **Endereço Público (0x...):** Para onde você enviará o ETH gratuito de teste.
+2. **Chave Privada (0x...):** A chave que você usará no comando `export ADMIN_PRIVATE_KEY="0x..."`.
+
+#### Opção B: Exportar do MetaMask (Conta Secundária)
+Se você já utiliza o MetaMask:
+1. Abra o MetaMask no navegador.
+2. Clique no seletor de contas no topo $\rightarrow$ **"Adicionar conta"** $\rightarrow$ Nomeie como `Dev Base Sepolia`.
+3. Clique nos três pontinhos verticais (`⋮`) ao lado do nome da conta $\rightarrow$ **"Detalhes da conta"**.
+4. Clique em **"Mostrar chave privada"**, digite a senha da sua carteira e confirme.
+5. Copie a sequência hexadecimal exibida (começando ou não com `0x`).
+
+---
+
+### Passo 4: Como Obter Saldo Gratuito de Teste (Faucet da Base Sepolia)
+
+Para que sua carteira de testes consiga registrar o contrato na rede Base Sepolia, ela precisa de uma fração minúscula de ETH de teste (custa **R$ 0,00**):
+
+1. Copie o **Endereço Público** da sua carteira de testes (o endereço que começa com `0x...`, **NÃO** a chave privada).
+2. Acesse uma das torneiras públicas gratuitas:
+   - 🚰 [Base Faucet Oficial](https://www.base.org/faucets) (ou [basefaucet.com](https://basefaucet.com))
+   - 🚰 [Chainlink Sepolia Faucet](https://faucets.chain.link)
+   - 🚰 [Superchain Faucet](https://console.optimism.io/faucet)
+3. Cole seu endereço público e solicite os fundos de teste. Em poucos segundos você receberá ETH de teste na Base Sepolia.
+
+---
+
+### Passo 5: Deploy do Contrato e Preenchimento Automático do `.env` via Script
+
+Agora que você tem a chave de testes e fundos de faucet, faça o deploy:
+
+```bash
+# 1. Defina a chave privada da carteira de testes
+export ADMIN_PRIVATE_KEY="0x_sua_chave_privada_gerada_acima"
+
+# 2. Execute o script de deploy automatizado
 npm run deploy:contract
 ```
 

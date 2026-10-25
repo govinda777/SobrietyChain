@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "lint": "tsc --noEmit",
     "deploy:contract": "npx tsx scripts/deploy-contract.ts",
+    "create-wallet": "npx tsx scripts/create-wallet.ts",
     "thirdweb": "thirdweb"
   },
   "dependencies": {
