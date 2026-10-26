@@ -1,4 +1,4 @@
-name: Deploy Serena dApp to GitHub Pages
+name: Deploy SobrietyChain dApp to GitHub Pages
 
 on:
   push:
@@ -6,17 +6,20 @@ on:
       - main
   workflow_dispatch:
 
+# Permissões necessárias para publicar via GitHub Pages nativo
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
+# Permite apenas um deploy simultâneo, descartando builds desatualizados
 concurrency:
   group: 'pages'
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Código
         uses: actions/checkout@v4
@@ -33,13 +36,25 @@ jobs:
       - name: Compilar Projeto (Vite Build)
         env:
           VITE_THIRDWEB_CLIENT_ID: ${{ secrets.VITE_THIRDWEB_CLIENT_ID }}
-          VITE_EDITION_DROP_ADDRESS: ${{ secrets.VITE_EDITION_DROP_ADDRESS }}
-          VITE_ACTIVE_CHAIN: ${{ secrets.VITE_ACTIVE_CHAIN || 'base-sepolia' }}
-        run: npm run build
+          VITE_EDITION_DROP_ADDRESS: ${{ secrets.VITE_EDITION_DROP_ADDRESS || '0x2Fe5Abb5B7103dF986de19E485Af3ba93E08a080' }}
+          VITE_ACTIVE_CHAIN: ${{ secrets.VITE_ACTIVE_CHAIN || 'sepolia' }}
+        run: |
+          npm run build
+          # Adiciona 404.html para suportar roteamento direto no GitHub Pages sem erro 404 ao recarregar
+          cp dist/index.html dist/404.html
 
-      - name: Deploy para a branch gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload Artifact para o GitHub Pages
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          commit_message: "deploy: atualizacao automatica do Serena dApp via GitHub Actions"
+          path: ./dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy para GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
