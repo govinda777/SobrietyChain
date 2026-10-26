@@ -8,10 +8,8 @@ import {
   ShieldCheck, 
   Sparkles, 
   Award, 
-  BookOpen, 
   HelpCircle, 
   Layers, 
-  Compass, 
   HeartHandshake, 
   ExternalLink 
 } from 'lucide-react';
