@@ -32,11 +32,22 @@ async function main() {
     process.exit(1);
   }
 
+  if (!secretKey) {
+    console.warn('⚠️  Aviso: THIRDWEB_SECRET_KEY não detectada no terminal.');
+    console.warn('   Se o seu Client ID tiver restrição de domínios (Allowed Domains), o upload IPFS/RPC retornará 401.');
+    console.warn('   Recomendado: export THIRDWEB_SECRET_KEY="<SUA_SECRET_KEY>"\n');
+  }
+
   const client = createThirdwebClient(
     secretKey ? { secretKey } : { clientId: clientId || '' }
   );
 
   const rawKey = (adminPrivateKey || '').trim().replace(/['"]/g, '');
+  if (!rawKey) {
+    console.error('❌ Erro: ADMIN_PRIVATE_KEY não definida na sessão atual do terminal.');
+    console.log('👉 Exporte com: export ADMIN_PRIVATE_KEY="0x..."');
+    process.exit(1);
+  }
   const formattedKey = (rawKey.startsWith('0x') ? rawKey : `0x${rawKey}`) as `0x${string}`;
   const account = privateKeyToAccount({ client, privateKey: formattedKey });
 
@@ -125,7 +136,6 @@ async function main() {
           {
             price: 0,
             maxClaimableSupply: 1000000n,
-            quantityLimitPerWallet: 1n,
           },
         ],
       });

@@ -7,6 +7,8 @@ import * as path from 'path';
 
 /**
  * Script IaC: Faz o deploy do contrato Edition Drop na Base e atualiza o .env automaticamente.
+ * Utiliza os nós RPC nativos autenticados da Thirdweb via THIRDWEB_SECRET_KEY para evitar
+ * erros 401 (Allowed Domains) e Rate Limit (-32007) de endpoints públicos.
  */
 async function main() {
   const envPath = path.resolve(process.cwd(), '.env');
@@ -42,6 +44,12 @@ async function main() {
   if (!secretKey && !clientId) {
     console.error('❌ Erro: Configure sua chave do Thirdweb no ambiente ou faça login com: npx thirdweb login');
     process.exit(1);
+  }
+
+  if (!secretKey) {
+    console.warn('⚠️  Aviso: THIRDWEB_SECRET_KEY não detectada no terminal.');
+    console.warn('   Se o seu Client ID tiver restrição de domínios (Allowed Domains), o deploy retornará 401.');
+    console.warn('   Recomendado: export THIRDWEB_SECRET_KEY="<SUA_SECRET_KEY>"\n');
   }
 
   const client = createThirdwebClient(
@@ -154,8 +162,36 @@ async function main() {
     fs.writeFileSync(envPath, envContent, 'utf-8');
     console.log('✅ Arquivo .env atualizado com o endereço do contrato automaticamente!\n');
 
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('❌ Falha ao realizar deploy do contrato:', error);
+    const errMsg =
+      error instanceof Error
+        ? error.message
+        : typeof error === 'object' && error !== null
+        ? JSON.stringify(error)
+        : String(error);
+
+    if (errMsg.includes('401') || errMsg.includes('Unauthorized')) {
+      console.log('\n' + '='.repeat(75));
+      console.log('🔒 DIAGNÓSTICO (ERRO 401 UNAUTHORIZED):');
+      console.log('O VITE_THIRDWEB_CLIENT_ID possui restrição de domínio (Allowed Domains)');
+      console.log('ativa para navegadores e recusa chamadas diretas via Node.js/Terminal.');
+      console.log('\n👉 COMO RESOLVER COM SEGURANÇA (Sem abrir All Domains):');
+      console.log('1. Copie a Secret Key da sua chave no Thirdweb Dashboard.');
+      console.log('2. Exporte no terminal antes de rodar o deploy:');
+      console.log('   export THIRDWEB_SECRET_KEY="<SUA_SECRET_KEY>"');
+      console.log('   npm run deploy:contract');
+      console.log('📖 Guia completo: docs/DEPLOY_CONTRACT_GUIDE.md');
+      console.log('='.repeat(75) + '\n');
+    } else if (errMsg.includes('-32007') || errMsg.includes('request limit reached') || errMsg.includes('429')) {
+      console.log('\n' + '='.repeat(75));
+      console.log('🚦 DIAGNÓSTICO (RPC RATE LIMIT / -32007):');
+      console.log('O endpoint RPC atingiu o limite de requisições por segundo.');
+      console.log('Certifique-se de exportar a THIRDWEB_SECRET_KEY para autenticar no');
+      console.log('gateway dedicado da Thirdweb e aguarde alguns segundos antes de tentar novamente.');
+      console.log('📖 Guia completo: docs/DEPLOY_CONTRACT_GUIDE.md');
+      console.log('='.repeat(75) + '\n');
+    }
     process.exit(1);
   }
 }

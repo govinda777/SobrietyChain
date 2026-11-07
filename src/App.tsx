@@ -11,7 +11,8 @@ import {
   HelpCircle, 
   Layers, 
   HeartHandshake, 
-  ExternalLink 
+  ExternalLink,
+  PlayCircle
 } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -40,9 +41,24 @@ export const App: React.FC = () => {
         
         {/* Seção Hero & Filosofia */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-xs text-slate-300">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Rede Base ({activeChain.name}) • Gas Patrocinado</span>
+          <div className="flex flex-wrap items-center justify-center gap-2.5">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-xs text-slate-300">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Rede Base ({activeChain.name}) • Gas Patrocinado</span>
+            </div>
+
+            {/* Banner com link do vídeo explicativo */}
+            <a
+              href="https://youtu.be/hJkoUGade2c"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-xs font-medium text-emerald-300 transition-all duration-200 group shadow-sm hover:scale-[1.02]"
+              title="Assistir ao vídeo explicando o funcionamento do SobrietyChain"
+            >
+              <PlayCircle className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform" />
+              <span>Como funciona o dApp? Assista ao vídeo</span>
+              <ExternalLink className="w-3 h-3 text-emerald-400/70" />
+            </a>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">

@@ -19,7 +19,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.6.0",
-    "thirdweb": "^5.88.0"
+    "thirdweb": "^5.122.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.18",
@@ -31,5 +31,13 @@
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "vite": "^6.1.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "esbuild@0.25.12": true,
+    "fsevents@2.3.3": true,
+    "bufferutil@4.1.0": true,
+    "utf-8-validate@5.0.10": true,
+    "keccak@3.0.4": true
   }
 }

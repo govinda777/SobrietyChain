@@ -2,7 +2,16 @@
 
 > *"Concedei-me, Senhor, a serenidade necessária para aceitar as coisas que não posso modificar, coragem para modificar aquelas que posso e sabedoria para distinguir umas das outras."*
 
-O **Serena** é um dApp descentralizado e 100% estático voltado a membros e comunidades de recuperação comportamental (inspirado na tradição das fichas de **Alcoólicos Anônimos**). Ele permite que qualquer pessoa comemore seus marcos de sobriedade de forma anônima, perpétua e gratuita através de contratos inteligentes na rede **Base**.
+O **Serena (SobrietyChain)** é um dApp descentralizado e 100% estático voltado a membros e comunidades de recuperação comportamental (inspirado na tradição das fichas de **Alcoólicos Anônimos**). Ele permite que qualquer pessoa comemore seus marcos de sobriedade de forma anônima, perpétua e gratuita através de contratos inteligentes na rede **Base**.
+
+📺 **Vídeo Explicativo do dApp:** [Assista no YouTube](https://youtu.be/hJkoUGade2c)  
+📓 **Caderno de Estudos e Pesquisa (Google NotebookLM):** [Acesse o Notebook do Projeto](https://notebook.google.com/notebook/7cdbfa4a-e6b8-42b7-8414-5574e87ef645)
+
+---
+
+## 🏛️ Arquitetura Técnica Web3
+
+![Arquitetura Técnica de Aplicação Web3](docs/assets/arquitetura-tecnica-web3.png)
 
 ---
 
@@ -35,9 +44,9 @@ Para colocar o dApp em pleno funcionamento com resgate on-chain e transações p
 1. Acesse o [Thirdweb Dashboard](https://thirdweb.com/dashboard/settings/api-keys).
 2. Clique em **Create API Key**.
 3. Dê um nome ao seu projeto (ex: `Serena-Sobriety`).
-4. Em **Allowed Domains**, adicione:
+4. Em **Allowed Domains**, adicione estritamente os domínios autorizados (sem usar *All Domains* nem curingas amplos):
    - `localhost:5173` (para desenvolvimento local)
-   - `*.github.io` (para o GitHub Pages) ou o seu domínio personalizado.
+   - `govinda777.github.io` (ou o seu domínio específico no GitHub Pages / produção).
 5. Copie o seu **Client ID** (chave pública).
 
 ### 2. Fazer Deploy do Contrato Edition Drop (ERC-1155)
@@ -95,7 +104,10 @@ export ADMIN_PRIVATE_KEY="0x_sua_chave_privada_da_testnet"
 npm run deploy:contract
 ```
 
-> 💻 **Setup 100% via Código e Terminal:** Consulte nosso [**Guia de Configuração do `.env` via Scripts (IaC)**](docs/TUTORIAL_ENV.md) para rodar o pipeline sem acessar painéis visuais.
+> 💻 **Documentação Operacional e Segurança (IaC):**
+> - [**Guia Técnico e Troubleshooting de Deploy (`npm run deploy:contract`)**](docs/DEPLOY_CONTRACT_GUIDE.md)
+> - [**Guia de Rotação Segura de API Key (`THIRDWEB_SECRET_KEY`) e Custódia**](docs/API_KEY_ROTATION_GUIDE.md)
+> - [**Guia de Configuração do `.env` via Scripts**](docs/TUTORIAL_ENV.md)
 
 
 

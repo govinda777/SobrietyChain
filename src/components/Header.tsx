@@ -73,6 +73,13 @@ export const Header: React.FC = () => {
               privacyPolicyUrl: 'https://pt.wikipedia.org/wiki/Alco%C3%B3licos_An%C3%B4nimos',
               termsOfServiceUrl: '#',
             }}
+            detailsModal={{
+              showTestnetFaucet: false,
+              hideBuyFunds: true,
+              hideSendFunds: true,
+              hideReceiveFunds: true,
+              assetTabs: ['token'],
+            }}
             detailsButton={{
               className: '!bg-slate-900/90 !border !border-slate-800 hover:!border-slate-700 !rounded-xl !text-slate-200 !text-sm',
             }}
